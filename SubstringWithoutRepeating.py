@@ -17,8 +17,18 @@ class Solution:
         return leght
 
 class TestSolution(unittest.TestCase):
+    """
+    Esta clase define pruebas unitarias para el método lengthOfLongestSubstring
+    de una clase Solution.
+    """
+
     def test_lengthOfLongestSubstring(self):
-        s = Solution()
+        """
+        Prueba el método lengthOfLongestSubstring en diferentes casos de prueba.
+        """
+        s = Solution()  # Crea una instancia de la clase Solution
+
+        # Define casos de prueba con entradas y salidas esperadas
         test_cases = {
             "case1": (" ", 1),
             "case2": ("aa", 1),
@@ -28,10 +38,15 @@ class TestSolution(unittest.TestCase):
             "case6": ("anviaj", 5),
             "case7": ("nfpdmpi", 5)
         }
-        
+
+        # Itera a través de los casos de prueba
         for name, (input_str, expected_output) in test_cases.items():
             with self.subTest(name=name):
-                self.assertEqual(s.lengthOfLongestSubstring(input_str), expected_output)
+                # Utiliza subTest para aislar las pruebas individuales
+                # Ejecuta el método lengthOfLongestSubstring con la entrada actual
+                result = s.lengthOfLongestSubstring(input_str)
+                # Compara el resultado real con el resultado esperado
+                self.assertEqual(result, expected_output)
 
 if __name__ == "__main__":
     unittest.main()
