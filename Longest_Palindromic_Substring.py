@@ -1,30 +1,34 @@
 import unittest
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        lp: str = ""
-        if len(s) == 1 or len(s) == 0: return s
-        if s.count(s[0]) == len(s): return s
-    
-        # Iteramos bajo la suposición de que s es el centro de un palindromo
-        for indice in range(len(s)):
-            c:int = 0
+        def expand(i,j):
+            left:int = i
+            right:int = j
             current_p:str = ""
-            c_2: int = 0
 
-            for j in range(1, len(s[:indice])+2):
-                if indice+j-c_2 > len(s)-1: break
-                if s[indice-c-1] == s[indice+j-c_2] and indice-c-1>-1: # Caso impar
-                    current_p = s[indice-c-1:indice+j-c_2+1]
+            if left == right:
+                current_p = s[i]
+                # Limite inferior y superior.
+                while (left > 0) & (right < len(s)-1) and s[left-1] == s[right+1]:
+                    left -= 1
+                    right += 1
+                    current_p = s[left] +current_p +s[right]
+            else:
+                while (left >= 0) & (right <= len(s)-1) and s[left] == s[right]:
+                    current_p = s[left] +current_p + s[right]
+                    left -= 1
+                    right += 1
 
-                if s[indice-c] == s[indice+j-c_2]  and ( not(indice-c-1>-1) or not s[indice-c-1] == s[indice+j-c_2]) : 
-                    current_p = s[indice-c] +current_p +s[indice+j-c_2]
-                if len(current_p) == 0:
-                    current_p = s[indice]
-                    c_2 += 1
-                c +=1
-                lp = lp if len(current_p)< len(lp) else current_p 
-        if lp == "" and len(s)>0: lp= s[0]     
-        return lp 
+            return current_p 
+        
+        lp:str = ""
+        for i in range(len(s)):
+            even = expand(i,i)
+            odd = expand(i,i+1)
+            if len(even)>len(odd): lp =  lp if len(lp) >=len(even) else even
+            else: lp =  lp if len(lp) >len(odd) else odd
+            
+        return lp
             
 class TestSolution(unittest.TestCase):
     """
@@ -65,10 +69,10 @@ class TestSolution(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    #unittest.main()
+    unittest.main()
 
     s = Solution()
-    print(s.longestPalindrome('aacabdkacaa')) 
+    print(s.longestPalindrome("ac")) 
 
 
             
