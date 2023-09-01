@@ -4,7 +4,7 @@
 from typing import Optional, List
 
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self, val=False, next=None):
         self.val = val
         self.next = next
     
@@ -28,7 +28,7 @@ class Solution:
         pointer = None
 
         while limit:  # Si todos los ll estan vacios limit sera False
-            print(valor_menor)
+            #print(valor_menor)
             ll: ListNode = lists[index] # likend-list actual ; likend-list=ll
 
             if ll.val == None: pass
@@ -45,8 +45,8 @@ class Solution:
 
                 pointer.remove_head() # eliminamos el nodo de la ll actual
                 valor_menor = 10 ** 4
-            print([j.val is not None for j in lists])
-            print([j.val for j in lists])
+            #print([j.val is not None for j in lists])
+            #print([j.val for j in lists])
             limit = any(j.val is not None for j in lists) # Comprobamos si todos los ll estan vacios
 
         return ans
@@ -69,16 +69,17 @@ def create_linked_list(values):
 
 
 if __name__ == "__main__":
-    lists = [[1,4,5],[1,3,4],[2,6]]
+    #l =[[1]]
+    l = [[1,4,5],[1,3,4],[2,6]]
     # Output: [1,1,2,3,4,4,5,6]
     
     
     # Creamos una lista con las listas enlazadas
-    likend_lists = [create_linked_list(i) for i in lists]
+    likend_lists = [create_linked_list(i) for i in l]
     s = Solution()
     result = s.mergeKLists(likend_lists)
     
-    while result:
+    while result.val:
         print(result.val, end=" -> ")
         result = result.next
     #print("None")
